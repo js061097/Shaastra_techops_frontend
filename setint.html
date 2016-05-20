@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+<button id="start" onclick="start()">start</button><br>
+<div id="test"></div>
+<script>
+	 var arr=new Array("abc","def","ghi");
+    	var i=1;
+
+  function start(){
+  setInterval(function(){
+   
+   if(i==1)
+
+   {document.getElementById("test").innerHTML=arr[0];}
+   else if(i==2)
+   	{document.getElementById("test").innerHTML=arr[1];}
+   else
+   	{document.getElementById("test").innerHTML=arr[2];
+     i=0;}
+                           
+   i++;
+    }, 3000);
+}
+      
+</script>
+</body>
+</html>

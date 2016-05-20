@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>REGISTRATION FORM</title>
+	<link rel="stylesheet" type="text/css" href="/Users/js061097/Documents/bootstrap-3.3.5-dist/css/bootstrap.min.css ">
+	<script src="/Users/js061097/Documents/jquery-2.2.0.min.js"></script>
+	<style>
+	body{
+		margin-left: 250px;
+        margin-top:20px;
+        margin-bottom: 20px;
+        background:-webkit-linear-gradient(right,rgb(160,167,153),rgb(200,201,206));
+        background-size: 1280px 800px;
+	}
+
+	#circbox
+	{
+	 
+     border:3px solid rgb(67,61,26);
+     border-radius:25px; 
+     width:450px;
+     height:800px;
+     padding: 50px;
+    
+
+	}
+	
+
+	</style>
+</head>
+<body>
+   <div id="circbox">
+
+   	<h1>Registration Form</h1><br>
+   
+   <form>
+
+
+  <div class="form-group" class="container">
+    <label for="fname">First Name</label>
+  
+    <input  type="text" class="form-control" id="fname" placeholder="First Name">
+    
+
+    
+  </div>
+
+
+  <div class="form-group">
+    <label for="lname">Last Name</label>
+    <input  type="text" class="form-control" id="lname" placeholder="Last Name">
+  </div>
+
+  <div class="form-group">
+    <label for="phoneno">Contact no.</label>
+    <input  type="text" class="form-control" id="phoneno" placeholder="Contact Number">
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email address</label>
+    <input  type="text" class="form-control" id="email" placeholder="Email">
+  </div>
+  <label for="state">State</label><br>
+ <select id="state" name="sel"></select>
+
+  <div class="form-group">
+    <br><label for="password">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Password">
+  </div>
+
+   <div class="form-group">
+    <label for="repassword">Retype Password</label>
+    <input type="password" class="form-control" id="repassword" placeholder="Retype Password">
+  </div>
+
+  <br>
+ 
+  <button type="button" id="submit" class="btn btn-primary">Submit</button>
+   <button type="button" id="sucsubmit"class="btn btn-success" disabled>Successfully Submitted</button>
+
+</form>
+
+
+</div>
+</body>
+
+<script>
+
+function validateText(id)
+{  
+	
+  if($("#"+id).val()==null || $("#"+id).val()=="")
+  	{   var div = $("#"+id).closest("div");
+        div.addClass("has-error");
+       return false;}
+   else
+   {  var div = $("#"+id).closest("div");
+      div.removeClass("has-error");
+
+      $("#add").remove();
+
+      return true;
+
+   }
+}
+
+function isSuccess(id,value)
+{
+  
+  var div = $("#"+id).closest("div");
+        div.addClass("has-"+value);
+
+}
+
+
+$(document).ready(function()
+{
+  $("#sucsubmit").hide();
+  var statelist = ["Delhi","Goa","Kerala","Rajasthan","Maharashtra","Uttar Pradesh","Bihar","Punjab","Madhya Pradesh","Telengana","Karnataka","West Bengal","Uttarakhand","Andhra Pradesh","Assam","Haryana","Himachal Pradesh","Jharkhand","Chhattisgarh","Arunachal Pradesh","Sikkim","Meghalaya","Tamil Nadu","Odisha","Gujarat","Jammu and Kashmir","Nagaland","Manipur","Tripura","Mizoram"];            
+
+  
+var sel = document.getElementById('state');
+for(var i = 0; i < statelist.length; i++) {
+    var opt = document.createElement('option');
+    opt.innerHTML = statelist[i];
+    opt.value = statelist[i];
+    sel.appendChild(opt);
+}
+
+
+  $("#submit").click(function(){            //x@g.ab
+                                           //012345  (6)
+    var check=0;
+    //name Validation
+    if(validateText("fname"))
+    {   $("#efname").detach();
+    	isSuccess("fname","success");
+    	check++;
+    }
+    else
+    {$("#efname").detach(); 
+    	$("#fname").closest("div").append("<code id='efname'>This field is required</code>");
+    }
+    //end of first name
+
+    if(validateText("lname"))
+    {   $("#elname").detach();
+    	isSuccess("lname","success");
+    	check++;
+    }
+    else
+    {$("#elname").detach(); 
+    	$("#lname").closest("div").append("<code id='elname'>This field is required</code>");
+    }
+    //end of last name
+
+    //email Validation
+    
+     if(validateText("email"))
+    {  $("#eemail").detach();
+       $("#e1email").detach();
+       var email=$("#email").val();
+       var f=email.indexOf("@",0);
+       
+       if((f!=0) && ((email.indexOf(".",f)-f-1)>=1) && ((email.length-email.indexOf(".")-1)>=2) )
+       {
+        isSuccess("email","success");
+        check++;}
+       else
+       	{
+         isSuccess("email","error");
+        $("#email").closest("div").append("<code id='e1email'>Invalid e-mail ID</code>");
+        }
+       }
+
+    else
+       {  $("#eemail").detach();
+          $("#e1email").detach();
+        $("#email").closest("div").append("<code id='eemail'>This field is required</code>");
+
+       }
+    //end of email
+   
+    //States
+    
+
+
+    //End of States
+
+    //mobile no Validation
+    if(validateText("phoneno"))
+    { $("#ephoneno").detach();
+      $("#e1phoneno").detach();
+      var num=$("#phoneno").val();
+      
+      var i=0,count=0;
+      for(i=0;i<num.length;i++)
+      	{    if(!isNaN(num[i]))
+      	       {count=count+1;}
+      	}
+
+      	if(count==num.length && count==10)
+      		{ isSuccess("phoneno","success");
+             check++;}
+      	else
+      		{isSuccess("phoneno","error");
+      $("#phoneno").closest("div").append("<code id='e1phoneno'>This number is invalid </code>");
+             }
+    }
+    else
+    { $("#ephoneno").detach();
+      $("#e1phoneno").detach();
+     $("#phoneno").closest("div").append("<code id='ephoneno'>This field is required</code>");
+
+    }
+    //end of contact
+
+   //password Validation
+   if(validateText("password"))
+
+   { $("#epassword").detach();
+     $("#e1password").detach();
+     var pass=$("#password").val();
+     if(pass.length>=6)
+     	{  isSuccess("password","success");
+           check++;}
+     else
+     	{  isSuccess("password","error");
+    $("#password").closest("div").append("<code id='e1password'>Maximum of 6 characters required</code>");}
+   }
+   else
+   { $("#epassword").detach();
+     $("#e1password").detach();
+     $("#password").closest("div").append("<code id='epassword'>This field is required</code>");
+   }	
+   //end of password1
+
+   //retype password Validation
+   if(validateText("repassword"))
+   {  
+   	   $("#erepassword").detach();
+   	   $("#e1repassword").detach();
+    var pass1=$("#password").val();
+    var pass2=$("#repassword").val();
+    if(pass2==pass1)
+    	{  isSuccess("repassword","success");
+          check++;}
+    else
+    	{  isSuccess("repassword","error");
+    $("#repassword").closest("div").append("<code id='e1repassword'>Passwords doesn't match</code>");
+         }
+
+   }  
+   else
+   {  $("#erepassword").detach();
+      $("#e1repassword").detach();
+     $("#repassword").closest("div").append("<code id='erepassword'>This field is required</code>");
+   }
+   //end of password2
+
+    if(check==6)
+    	{   $("#submit").detach();
+    		$("#sucsubmit").show();
+
+          
+        /*$("#submit").removeClass("btn btn-primary");
+        $("#submit").addClass("btn btn-success");*/
+        
+         }
+});
+});
+</script>
+</html>
